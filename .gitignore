@@ -1,0 +1,7 @@
+node_modules/
+
+/settings.json
+
+# PhpStorm
+.idea/workspace.xml
+.idea/jsLibraryMappings.xml

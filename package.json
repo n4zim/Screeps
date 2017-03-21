@@ -1,0 +1,16 @@
+{
+  "name": "screeps-nazim",
+  "version": "1.0",
+  "author": "Nazim Lachter",
+  "main": "Gruntfile.js",
+  "devDependencies": {
+    "grunt": "^1.0.1",
+    "grunt-contrib-clean": "^1.0.0",
+    "grunt-contrib-copy": "^1.0.0",
+    "grunt-contrib-watch": "^1.0.0",
+    "grunt-screeps": "^1.2.1"
+  },
+  "scripts": {
+    "sync": "grunt screeps"
+  }
+}
