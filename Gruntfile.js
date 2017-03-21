@@ -12,7 +12,7 @@ module.exports = grunt => {
                 email: settings.email,
                 password: settings.password,
                 branch: settings.branch,
-                ptr: true
+                ptr: false
             },
             dist: {
                 src: ['dist/*.js']

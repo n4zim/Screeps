@@ -1,21 +1,11 @@
-// ROLES
-const roleArcher = require('role.archer');
-const roleBuilder = require('role.builder');
-const roleGuard = require('role.guard');
-const roleHarvester = require('role.harvester');
-const roleHealer = require('role.healer');
-const roleUpgrader = require('role.upgrader');
+module.exports = () => {
+    const archer    = require('role.upgrader');
+    const builder   = require('role.builder');
+    const guard     = require('role.guard');
+    const harvester = require('role.harvester');
+    const healer    = require('role.healer');
+    const upgrader  = require('role.upgrader');
 
-if(!Memory.state) Memory.state = 'init';
-
-module.exports.loop = () => {
-
-    // ROOMS
-    for(let name in Game.rooms) {
-        //console.log('Room "'+name+'" has '+Game.rooms[name].energyAvailable+' energy');
-    }
-
-    // CREEPS
     for(let name in Game.creeps) {
         //noinspection JSUnfilteredForInLoop
         const creep = Game.creeps[name];
@@ -28,5 +18,4 @@ module.exports.loop = () => {
             case 'upgrader':  roleUpgrader.run(creep);  break;
         }
     }
-
 };
