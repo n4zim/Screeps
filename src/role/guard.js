@@ -1,4 +1,4 @@
-const roleGuard = {
+const guard = {
 
     /** @param {Creep} creep **/
     run: creep => {
@@ -11,4 +11,4 @@ const roleGuard = {
 
 };
 
-module.exports = roleGuard;
+module.exports = guard;

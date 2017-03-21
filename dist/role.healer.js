@@ -1,4 +1,4 @@
-const roleHealer = {
+const healer = {
 
     /** @param {Creep} creep **/
     run: creep => {
@@ -11,4 +11,4 @@ const roleHealer = {
 
 };
 
-module.exports = roleHealer;
+module.exports = healer;

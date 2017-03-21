@@ -1,4 +1,4 @@
-const roleUpgrader = {
+const upgrader = {
 
     /** @param {Creep} creep **/
     run: creep => {
@@ -26,4 +26,4 @@ const roleUpgrader = {
 
 };
 
-module.exports = roleUpgrader;
+module.exports = upgrader;

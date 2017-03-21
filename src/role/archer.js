@@ -1,4 +1,4 @@
-const roleArcher = {
+const archer = {
 
     /** @param {Creep} creep **/
     run: creep => {
@@ -15,4 +15,4 @@ const roleArcher = {
 
 };
 
-module.exports = roleArcher;
+module.exports = archer;
