@@ -10,12 +10,12 @@ module.exports = () => {
         //noinspection JSUnfilteredForInLoop
         const creep = Game.creeps[name];
         switch(creep.memory.role) {
-            case 'archer':    roleArcher.run(creep);    break;
-            case 'builder':   roleBuilder.run(creep);   break;
-            case 'guard':     roleGuard.run(creep);     break;
-            case 'harvester': roleHarvester.run(creep); break;
-            case 'healer':    roleHealer.run(creep);    break;
-            case 'upgrader':  roleUpgrader.run(creep);  break;
+            case 'archer':    archer.run(creep);    break;
+            case 'builder':   builder.run(creep);   break;
+            case 'guard':     guard.run(creep);     break;
+            case 'harvester': harvester.run(creep); break;
+            case 'healer':    healer.run(creep);    break;
+            case 'upgrader':  upgrader.run(creep);  break;
         }
     }
 };

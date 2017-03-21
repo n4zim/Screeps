@@ -1,8 +1,8 @@
-const queue = require('core.queue');
-
 require('core.respawn')();
 require('core.queue').exec('HQ');
 require('main_creeps')();
+
+const queue = require('core.queue');
 
 module.exports.loop = () => {
     if(Memory.stage) {

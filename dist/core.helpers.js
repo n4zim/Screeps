@@ -1,2 +1,8 @@
 
-exports.isError = value => value < 0;
+const helpers = {
+
+    isError: value => value < 0,
+
+};
+
+module.exports = helpers;
