@@ -1,18 +1,25 @@
+const QUEUE = require('core.queue');
+
+const archer    = require('role.upgrader');
+const builder   = require('role.builder');
+const guard     = require('role.guard');
+const harvester = require('role.harvester');
+const healer    = require('role.healer');
+const upgrader  = require('role.upgrader');
+
 module.exports.loop = () => {
-
-    //const _ = require('lodash');
-    const queue = require('core.queue');
-
-    const archer    = require('role.upgrader');
-    const builder   = require('role.builder');
-    const guard     = require('role.guard');
-    const harvester = require('role.harvester');
-    const healer    = require('role.healer');
-    const upgrader  = require('role.upgrader');
 
     // SPAWNS
     _.forIn(Game.spawns, spawn => {
-        //console.log(spawn.name);
+        QUEUE.init(spawn);
+
+        if(spawn.energy > 0) {
+            QUEUE.add('harvester', spawn);
+            QUEUE.add('builder', spawn);
+            QUEUE.add('upgrader', spawn);
+        }
+
+        QUEUE.run(spawn);
     });
 
     // CREEPS
