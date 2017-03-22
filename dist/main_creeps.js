@@ -1,11 +1,11 @@
-module.exports = () => {
-    const archer    = require('role.upgrader');
-    const builder   = require('role.builder');
-    const guard     = require('role.guard');
-    const harvester = require('role.harvester');
-    const healer    = require('role.healer');
-    const upgrader  = require('role.upgrader');
+const archer    = require('role.upgrader');
+const builder   = require('role.builder');
+const guard     = require('role.guard');
+const harvester = require('role.harvester');
+const healer    = require('role.healer');
+const upgrader  = require('role.upgrader');
 
+module.exports = () => {
     for(let name in Game.creeps) {
         //noinspection JSUnfilteredForInLoop
         const creep = Game.creeps[name];
