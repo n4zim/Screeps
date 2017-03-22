@@ -11,15 +11,15 @@ module.exports.loop = () => {
 
     // SPAWNS
     _.forIn(Game.spawns, spawn => {
-        QUEUE.init(spawn);
+        QUEUE.init(spawn.name);
 
         if(spawn.energy > 0) {
-            QUEUE.add('harvester', spawn);
-            QUEUE.add('builder', spawn);
-            QUEUE.add('upgrader', spawn);
+            QUEUE.add('harvester', spawn.name);
+            QUEUE.add('builder', spawn.name);
+            QUEUE.add('upgrader', spawn.name);
         }
 
-        QUEUE.run(spawn);
+        QUEUE.run(spawn.name);
     });
 
     // CREEPS

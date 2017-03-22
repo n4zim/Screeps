@@ -5,25 +5,39 @@ const PARAMS = require("data.parameters");
 
 const QUEUE = {
 
-    init: spawn => {
-        if(typeof spawn.queue === 'undefined') {
-            Game.spawns[spawn.name].queue = {};
-            Game.spawns[spawn.name].total = 0;
-            if(PARAMS.DEBUG) console.log("[DEBUG] Queue initialization for spawn "+spawn.name);
+    init: spawnName => {
+        if(!Memory.queue) {
+            Memory.queue = {};
+            console.log("[QUEUE] Memory queue created");
+        }
+        if(!Memory.queue[spawnName]) {
+            Memory.queue[spawnName] = { creeps: [], counts: {} };
+            console.log("[QUEUE] Queue initialization for spawn "+spawnName);
         }
     },
 
-    add: (role, spawn, units = 1) => {
+    add: (role, spawnName, units = 1) => {
         let creep = _.cloneDeep(ROLES[role]);
-        for(let unit = 0; unit < units; unit++) Game.spawns[spawn.name].queue.push(creep);
-        if(PARAMS.DEBUG) console.log("[DEBUG] Pushing on queue "+units+" new "+role+" creep(s) in "+spawn.name);
+        for(let unit = 0; unit < units; unit++) {
+            let spawnQueue = Memory.queue[spawnName];
+            spawnQueue.creeps.push(creep);
+            spawnQueue.counts[role]++;
+        }
+        if(PARAMS.DEBUG) console.log("[DEBUG] Pushing on queue "+units+" new "+role+" creep(s) in "+spawnName);
     },
 
-    run: spawn => {
-        const creep = spawn.queue[0];
+    run: spawnName => {
+        const creep = Memory.queue[spawnName].creeps[0];
         if(creep) {
-            const result = CREEP.create(creep.role, creep.body, spawn);
-            if(!HELPERS.isError(result)) Game.spawns[spawn.name].queue.splice(0, 1);
+            let spawnQueue = Memory.queue[spawnName], role = creep.role;
+            if(typeof spawnQueue.counts[role] === 'undefined') spawnQueue.counts[role] = 0;
+            const name = role + spawnQueue.counts[role];
+
+            const result = CREEP.create(name, role, creep.body, spawnName);
+            if(!HELPERS.isError(result)) {
+                spawnQueue.counts[role]++;
+                spawnQueue.queue.splice(0, 1);
+            }
         }
     },
 
