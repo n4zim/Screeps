@@ -1,23 +1,30 @@
-require('main_creeps')();
-require('main_spawns')();
-
-const queue = require('core.queue');
 module.exports.loop = () => {
-    if(Memory.stage) {
-        switch(Memory.stage) {
-            case 1:
-                queue.add('harvester', 'HQ1', 1);
-                queue.add('guard',     'HQ1', 1);
-                //queue.add('archer',    'HQ1', 3);
-                queue.add('builder',   'HQ1', 1);
-                Memory.stage++;
-                break;
-            case 2:
-                //queue.add('healer',    'HQ1', 2);
-                Memory.stage++;
-                break;
+
+    //const _ = require('lodash');
+    const queue = require('core.queue');
+
+    const archer    = require('role.upgrader');
+    const builder   = require('role.builder');
+    const guard     = require('role.guard');
+    const harvester = require('role.harvester');
+    const healer    = require('role.healer');
+    const upgrader  = require('role.upgrader');
+
+    // SPAWNS
+    _.forIn(Game.spawns, spawn => {
+        //console.log(spawn.name);
+    });
+
+    // CREEPS
+    _.forIn(Game.creeps, creep => {
+        switch(creep.memory.role) {
+            case 'archer':    archer.run(creep);    break;
+            case 'builder':   builder.run(creep);   break;
+            case 'guard':     guard.run(creep);     break;
+            case 'harvester': harvester.run(creep); break;
+            case 'healer':    healer.run(creep);    break;
+            case 'upgrader':  upgrader.run(creep);  break;
         }
-    } else {
-        Memory.stage = 1;
-    }
+    });
+
 };

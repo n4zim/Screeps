@@ -2,7 +2,6 @@ const CREEP = require('core.creep');
 const HELPERS = require('core.helpers');
 const ROLES = require('data.roles');
 const PARAMS = require("data.parameters");
-const _ = require('lodash');
 
 const QUEUE = {
 

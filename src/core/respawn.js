@@ -1,9 +1,8 @@
+const _ = require('lodash');
+const helpers = require('core.helpers');
+const queue = require('core.queue');
 
 module.exports = () => {
-    const _ = require('lodash');
-    const helpers = require('core.helpers');
-    const queue = require('core.queue');
-
     _.forIn(Memory.creeps, (value, key) => {
         if(value.respawn && !Game.creeps[key]) {
             const result = queue.queue(value);
