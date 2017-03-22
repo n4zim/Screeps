@@ -1,40 +1,47 @@
-const creep = require('core.creep');
-const helpers = require('core.helpers');
-const roles = require('data.roles');
-const params = require("data.parameters");
+const CREEP = require('core.creep');
+const HELPERS = require('core.helpers');
+const ROLES = require('data.roles');
+const PARAMS = require("data.parameters");
 const _ = require('lodash');
 
-const queue = {
+const QUEUE = {
 
     init: spawn => {
-        if(!Memory.spawns) Memory.spawns = {};
-        Memory.spawns[spawn] = Memory.spawns[spawn] || {};
-        Memory.spawns[spawn].queue = Memory.spawns[spawn].queue || [];
-        if(params.DEBUG) console.log("[DEBUG] Queue initialization");
+        let init = false;
+
+        if(!Memory.queue) {
+            Memory.queue = {};
+            init = true;
+        }
+
+        if(!Memory.queue[spawn]) {
+            Memory.queue[spawn] = [];
+            init = true;
+        }
+
+        if(init && PARAMS.DEBUG) console.log("[DEBUG] Queue initialization for spawn "+spawn);
+        return init;
     },
 
     add: (role, spawn, units = 1) => {
-        if(params.DEBUG) console.log("[DEBUG] Adding " + units + " element(s) to queue...");
+        QUEUE.init(spawn);
 
-        let creep = _.cloneDeep(roles[role]);
+        let creep = _.cloneDeep(ROLES[role]);
         if(typeof(spawn)) creep.spawn = spawn;
         creep.role = role;
 
-        queue.init(spawn);
-
-        for(let unit = 0; unit < units; unit++) {
-            if(params.DEBUG) console.log("[DEBUG] Pushing on queue a new "+role+" creep in "+spawn);
-            Memory.spawns[spawn].queue.push(creep);
-        }
+        for(let unit = 0; unit < units; unit++) Memory.queue[spawn].push(creep);
+        if(PARAMS.DEBUG) console.log("[DEBUG] Pushing on queue "+units+" new "+role+" creep in "+spawn);
     },
 
     run: spawn => {
-        queue.init(spawn);
-        const data = Memory.spawns[spawn].queue[0];
-        if(data) {
-            const result = creep.create(data.role, data.body, data.spawn);
-            if(!helpers.isError(result)) {
-                Memory.spawns[spawn].queue.splice(0, 1);
+        QUEUE.init(spawn);
+
+        const creep = Memory.queue[spawn][0];
+        if(creep) {
+            const result = CREEP.create(creep.role, creep.body, creep.spawn);
+            if(!HELPERS.isError(result)) {
+                Memory.queue[spawn].splice(0, 1);
                 return result;
             }
         }
@@ -43,4 +50,4 @@ const queue = {
 
 };
 
-module.exports = queue;
+module.exports = QUEUE;

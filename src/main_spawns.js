@@ -1,12 +1,10 @@
-require('core.respawn')();
+//require('core.respawn')();
 
-const params = require('data.parameters');
 const queue = require('core.queue');
+const _ = require('lodash');
 
 module.exports = () => {
-    for(let name in Game.spawns) {
-        //noinspection JSUnfilteredForInLoop
-        const spawn = Game.spawns[name];
-        queue.run(spawn);
-    }
+    _.forIn(Game.spawns, (spawn, name) => {
+        queue.run(name);
+    });
 };

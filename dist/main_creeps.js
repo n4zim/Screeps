@@ -1,3 +1,4 @@
+const _ = require('lodash');
 const archer    = require('role.upgrader');
 const builder   = require('role.builder');
 const guard     = require('role.guard');
@@ -6,9 +7,7 @@ const healer    = require('role.healer');
 const upgrader  = require('role.upgrader');
 
 module.exports = () => {
-    for(let name in Game.creeps) {
-        //noinspection JSUnfilteredForInLoop
-        const creep = Game.creeps[name];
+    _.forIn(Game.creeps, (creep, name) => {
         switch(creep.memory.role) {
             case 'archer':    archer.run(creep);    break;
             case 'builder':   builder.run(creep);   break;
@@ -17,5 +16,5 @@ module.exports = () => {
             case 'healer':    healer.run(creep);    break;
             case 'upgrader':  upgrader.run(creep);  break;
         }
-    }
+    });
 };

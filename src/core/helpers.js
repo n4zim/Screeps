@@ -1,8 +1,8 @@
 
-const helpers = {
+const HELPERS = {
 
     isError: value => value < 0,
 
 };
 
-module.exports = helpers;
+module.exports = HELPERS;
