@@ -1,6 +1,6 @@
 const HELPERS = require('core.helpers');
 
-const CREEP = {
+const CREEPS = {
 
     create: (creepName, role, body, spawnName) => {
         const result = Game.spawns[spawnName].createCreep(
@@ -15,18 +15,24 @@ const CREEP = {
         );
 
         if(HELPERS.isError(result)) {
-            console.log("[ERROR] Creep generation", result);
+            //console.log("[ERROR] Creep generation", result);
         } else {
-            console.log("[CREEP] New creep : "+name);
+            console.log("[CREEP] New creep : "+creepName);
         }
 
         return result;
     },
 
-    getCount: role => {
-        return 1;
+    getCount: (spawnName, role) => {
+        let count = 0;
+        _.forIn(Game.creeps, creep => {
+            if(creep.memory.spawn = spawnName && creep.memory.role == role) {
+                count++;
+            }
+        });
+        return count;
     },
 
 };
 
-module.exports = CREEP;
+module.exports = CREEPS;
