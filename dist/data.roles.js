@@ -8,8 +8,8 @@ module.exports = {
     healer:    { role: 'healer',    body: [CARRY, HEAL, MOVE]          },
 
     // RESSOURCES
-    builder:   { role: 'builder',   body: [CARRY, WORK, MOVE]          },
+    builder:   { role: 'builder',   body: [WORK, CARRY, MOVE]          },
     harvester: { role: 'harvester', body: [CARRY, WORK, MOVE]          },
-    upgrader:  { role: 'upgrader',  body: [WORK, WORK, MOVE]           }
+    upgrader:  { role: 'upgrader',  body: [WORK, CARRY, MOVE]          },
 
 };

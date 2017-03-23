@@ -24,13 +24,7 @@ const CREEPS = {
     },
 
     getCount: (spawnName, role) => {
-        let count = 0;
-        _.forIn(Game.creeps, creep => {
-            if(creep.memory.spawn = spawnName && creep.memory.role == role) {
-                count++;
-            }
-        });
-        return count;
+        return _.filter(Game.creeps, c => c.memory.spawn == spawnName && c.memory.role == role).length;
     },
 
 };
