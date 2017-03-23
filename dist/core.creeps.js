@@ -10,7 +10,8 @@ const CREEPS = {
                 role,
                 body,
                 spawn: spawnName,
-                respawn: true
+                respawn: true,
+                assignments: null
             }
         );
 

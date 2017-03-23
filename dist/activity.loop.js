@@ -1,5 +1,4 @@
 const QUEUE = require('core.queue');
-const CREEPS = require('core.creeps');
 
 const archer    = require('role.upgrader');
 const builder   = require('role.builder');
@@ -11,20 +10,6 @@ const upgrader  = require('role.upgrader');
 module.exports = (NAME, ACTIVITY) => {
 
     _.forIn(Game.spawns, spawn => {
-        QUEUE.init(spawn.name);
-
-        if(CREEPS.getCount(spawn.name, 'harvester') + QUEUE.getCount(spawn.name, 'harvester') < 2) {
-            QUEUE.add('harvester', spawn.name);
-        }
-
-        if(CREEPS.getCount(spawn.name, 'builder') + QUEUE.getCount(spawn.name, 'builder') < 1) {
-            QUEUE.add('builder', spawn.name);
-        }
-
-        if(CREEPS.getCount(spawn.name, 'upgrader') + QUEUE.getCount(spawn.name, 'upgrader') < 1) {
-            QUEUE.add('upgrader', spawn.name);
-        }
-
         QUEUE.run(spawn);
     });
 

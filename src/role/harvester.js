@@ -3,9 +3,12 @@ const harvester = {
     /** @param {Creep} creep **/
     run: creep => {
         if(creep.carry.energy < creep.carryCapacity) {
-            const sources = creep.room.find(FIND_SOURCES);
-            if(creep.harvest(sources[0]) == ERR_NOT_IN_RANGE) {
-                creep.moveTo(sources[0], { visualizePathStyle: { stroke: '#ffaa00' } });
+            const source = (creep.memory.assignments && creep.memory.assignments.source)
+                    ?  Game.getObjectById(creep.memory.assignments.source)
+                    : creep.room.find(FIND_SOURCES)[0];
+
+            if(creep.harvest(source) == ERR_NOT_IN_RANGE) {
+                creep.moveTo(source, { visualizePathStyle: { stroke: '#ffaa00' } });
             }
         } else {
             const targets = creep.room.find(FIND_STRUCTURES, {
