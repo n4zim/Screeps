@@ -16,8 +16,8 @@ module.exports = (NAME, ACTIVITY) => {
     });
 
     // CREEPS
-    _.forIn(Memory.creeps, (creep, name) => {
-        const gameCreep = Game.creeps[name];
+    _.forIn(Memory.creeps, (creep, creepName) => {
+        const gameCreep = Game.creeps[creepName];
         if(gameCreep) {
             switch(creep.role) {
                 case 'archer':    archer.run(gameCreep);    break;
@@ -28,7 +28,7 @@ module.exports = (NAME, ACTIVITY) => {
                 case 'upgrader':  upgrader.run(gameCreep);  break;
             }
         } else if(creep.respawn) {
-            CREEPS.respawn(name, creep);
+            CREEPS.respawn(creepName, creep);
         } else {
             delete Memory.creeps[name];
         }
