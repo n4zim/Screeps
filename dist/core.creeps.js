@@ -15,7 +15,7 @@ const CREEPS = {
         );
 
         if(HELPERS.isError(result)) {
-            //console.log("[ERROR] Creep generation", result);
+            console.log("[ERROR] Creep generation", result);
         } else {
             console.log("[CREEP] New creep : "+creepName);
         }

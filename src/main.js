@@ -26,7 +26,7 @@ module.exports.loop = () => {
             QUEUE.add('upgrader', spawn.name);
         }
 
-        QUEUE.run(spawn.name);
+        QUEUE.run(spawn);
     });
 
     // CREEPS

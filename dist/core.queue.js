@@ -24,19 +24,24 @@ const QUEUE = {
         }
     },
 
-    run: spawnName => {
-        if(Memory.queue && Memory.queue[spawnName] && Memory.queue[spawnName].creeps) {
-            let spawnQueue = Memory.queue[spawnName];
+    run: spawn => {
+        if(Memory.queue && Memory.queue[spawn.name] && Memory.queue[spawn.name].creeps) {
+            let spawnQueue = Memory.queue[spawn.name];
             const creep = spawnQueue.creeps[0];
 
             if(creep) {
-                if(typeof spawnQueue.counts[creep.role] === 'undefined') spawnQueue.counts[creep.role] = 0;
-                const name = creep.role + '' + spawnQueue.counts[creep.role];
+                let cost = 0;
+                _.forIn(creep.body, bodypart => { cost += BODYPART_COST[bodypart]; });
 
-                const result = CREEPS.create(name, creep.role, creep.body, spawnName);
-                if(!HELPERS.isError(result)) {
-                    spawnQueue.counts[creep.role]++;
-                    spawnQueue.creeps.splice(0, 1);
+                if(cost <= spawn.energy) {
+                    if(typeof spawnQueue.counts[creep.role] === 'undefined') spawnQueue.counts[creep.role] = 0;
+                    const name = creep.role + '' + spawnQueue.counts[creep.role];
+
+                    const result = CREEPS.create(name, creep.role, creep.body, spawn.name);
+                    if(!HELPERS.isError(result)) {
+                        spawnQueue.counts[creep.role]++;
+                        spawnQueue.creeps.splice(0, 1);
+                    }
                 }
             }
         }
