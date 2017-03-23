@@ -1,4 +1,5 @@
 const QUEUE = require('core.queue');
+const CREEPS = require('core.creeps');
 
 const archer    = require('role.upgrader');
 const builder   = require('role.builder');
@@ -9,18 +10,27 @@ const upgrader  = require('role.upgrader');
 
 module.exports = (NAME, ACTIVITY) => {
 
+    // SPAWNS
     _.forIn(Game.spawns, spawn => {
         QUEUE.run(spawn);
     });
 
-    _.forIn(Game.creeps, creep => {
-        switch(creep.memory.role) {
-            case 'archer':    archer.run(creep);    break;
-            case 'builder':   builder.run(creep);   break;
-            case 'guard':     guard.run(creep);     break;
-            case 'harvester': harvester.run(creep); break;
-            case 'healer':    healer.run(creep);    break;
-            case 'upgrader':  upgrader.run(creep);  break;
+    // CREEPS
+    _.forIn(Memory.creeps, (creep, name) => {
+        const gameCreep = Game.creeps[name];
+        if(gameCreep) {
+            switch(creep.role) {
+                case 'archer':    archer.run(gameCreep);    break;
+                case 'builder':   builder.run(gameCreep);   break;
+                case 'guard':     guard.run(gameCreep);     break;
+                case 'harvester': harvester.run(gameCreep); break;
+                case 'healer':    healer.run(gameCreep);    break;
+                case 'upgrader':  upgrader.run(gameCreep);  break;
+            }
+        } else if(creep.respawn) {
+            CREEPS.respawn(name, creep);
+        } else {
+            delete Memory.creeps[name];
         }
     });
 
