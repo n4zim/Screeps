@@ -5,9 +5,9 @@ module.exports.loop = () => {
         Memory.activities = {};
         HELPERS.initActivity('harvest');
     } else {
-        _.forIn(Memory.activities, (stage, activity) => {
+        _.forIn(Memory.activities, (activity, name) => {
             try {
-                require("activity."+activity)(stage, activity);
+                require("activity."+name)(name, activity);
             } catch(e) {
                 console.log("[ERROR]", e);
             }

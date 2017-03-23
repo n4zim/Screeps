@@ -1,6 +1,6 @@
 const QUEUE = require('core.queue');
 
-module.exports = (STAGE, ACTIVITY) => {
+module.exports = (NAME, ACTIVITY) => {
 
     _.forIn(Game.spawns, spawn => {
         QUEUE.run(spawn);

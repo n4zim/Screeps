@@ -10,19 +10,23 @@ const HELPERS = {
 
     initActivity: activity => {
         if(Memory.activities[activity]) {
-            console.log('[ACTIVITY] '+activity+' already set at stage '+Memory.activities[activity]+' !');
+            console.log('[ACTIVITY] '+activity+' already set at stage '+Memory.activities[activity].stage+' !');
         } else {
-            Memory.activities[activity] = 0;
-            if(PARAMS.DEBUG) console.log('[ACTIVITY] '+activity+' launched');
+            Memory.activities[activity] = { data: {}, stage: 0 };
+            if(PARAMS.DEBUG) console.log('[ACTIVITY] '+activity+' launched with stage 0');
         }
     },
 
     setActivityStage: (activity, stage) => {
-        Memory.activities[activity] = stage;
+        Memory.activities[activity].stage = stage;
         if(PARAMS.DEBUG) console.log('[ACTIVITY] '+activity+' set to stage '+stage);
     },
 
-    increaseActivityStage: activity => { HELPERS.setActivityStage(activity, ++Memory.activities[activity]); },
+    increaseActivityStage: activity => { HELPERS.setActivityStage(activity, ++Memory.activities[activity].stage); },
+
+    setActivityData: (activity, name, value) => { Memory.activities[activity].data[name] = value; },
+
+    getActivityData: (activity, name) => Memory.activities[activity].data[name],
 
     removeActivity: activity => {
         if(Memory.activities[activity]) {

@@ -8,7 +8,7 @@ const harvester = require('role.harvester');
 const healer    = require('role.healer');
 const upgrader  = require('role.upgrader');
 
-module.exports = STAGE => {
+module.exports = (NAME, ACTIVITY) => {
 
     _.forIn(Game.spawns, spawn => {
         QUEUE.init(spawn.name);
