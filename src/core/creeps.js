@@ -24,7 +24,7 @@ const CREEPS = {
         if(HELPERS.isError(result)) {
             console.log("[ERROR] Creep regeneration", result);
         } else {
-            console.log("[CREEP] Creep respawn : "+creepName);
+            console.log("[CREEP] Creep respawn : "+name);
         }
 
         return result;
