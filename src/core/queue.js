@@ -49,7 +49,7 @@ const QUEUE = {
 
     getCount: (spawnName, role) => {
         if(!Memory.queue[spawnName] || !Memory.queue[spawnName].creeps) return 0;
-        return _.filter(Memory.queue[spawnName].creeps, c => c.memory.role == role).length;
+        return _.filter(Memory.queue[spawnName].creeps, c => c.role == role).length;
     },
 
 };
