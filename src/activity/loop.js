@@ -30,7 +30,7 @@ module.exports = (NAME, ACTIVITY) => {
         } else if(creep.respawn) {
             CREEPS.respawn(creepName, creep);
         } else {
-            delete Memory.creeps[name];
+            delete Memory.creeps[creepName];
         }
     });
 

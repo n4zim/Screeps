@@ -3,7 +3,7 @@ const HELPERS = require('core.helpers');
 const CREEPS = {
 
     new: (spawn, body, name, role, respawn, assignments) => (
-        Game.spawns[spawnName].createCreep(body, name, { role, body, spawn, respawn, assignments })
+        Game.spawns[spawn].createCreep(body, name, { role, body, spawn, respawn, assignments })
     ),
 
     create: (creepName, role, body, spawnName) => {
@@ -24,7 +24,7 @@ const CREEPS = {
         if(HELPERS.isError(result)) {
             console.log("[ERROR] Creep regeneration", result);
         } else {
-            console.log("[CREEP] Creep respawn : "+name);
+            console.log("[CREEP] Creep respawn : "+creepName);
         }
 
         return result;
