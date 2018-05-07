@@ -1,7 +1,11 @@
-const HELPERS = require('core.helpers');
+const screep = require('entity.screep')
+const roles = require('core.roles')
 
 module.exports.loop = () => {
-    if(!Memory.activities) {
+
+    new screep()
+
+    /*if(!Memory.activities) {
         Memory.activities = {};
         HELPERS.initActivity('start');
     } else {
@@ -12,5 +16,5 @@ module.exports.loop = () => {
                 console.log("[ERROR]", e);
             }
         });
-    }
-};
+    }*/
+}
