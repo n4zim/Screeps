@@ -3,7 +3,7 @@ const roles = require('core.roles')
 
 module.exports.loop = () => {
 
-    new Screep({ spawn: 'home', role: roles.HARVESTER, name: 'john' })
+    new Screep({ spawn: 'home', role: roles.HARVESTER })
 
     /*if(!Memory.activities) {
         Memory.activities = {};

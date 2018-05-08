@@ -1,15 +1,14 @@
 const logger = require('core.logger')
+const handlers = require('core.handlers')
 const roles = require('core.roles')
 const Role = require('entity.role')
 
 module.exports = class {
 
     constructor({ name, spawn, role }) {
-        if(typeof name !== 'undefined') {
-            console.log(name)
-            this.name = name
-        } 
-        if(typeof spawn === 'undefined') {
+        if(typeof name !== 'undefined' && typeof Game.creeps[name] !== 'undefined') {
+            this.syncFromMemory(name)
+        } else if(typeof spawn === 'undefined') {
             logger.error('No spawn selected', this)
         } else if(typeof Game.spawns[spawn] === 'undefined') {
             logger.error('Unknown spawn "' + spawn + '"', this)
@@ -18,26 +17,28 @@ module.exports = class {
         } else if(!(role instanceof Role)) {
             logger.error('Role must be a class instance', this)
         } else {
-            this.spawn = spawn
             this.role = role
-            this.add()
+            this.name = role.getName()
+            this.add(spawn)
         }
     }
 
-    add() {
-        if(Game.spawns[this.spawn].spawnCreep(this.role.getBody(), this.name, {
+    syncFromMemory(name) {
+        const memory = Game.creeps[name]
+        this.name = name
+        this.spawn = memory.spawn
+        this.role = memory.role
+    }
+
+    add(spawn) {
+        handlers.spawnCreep(Game.spawns[spawn].spawnCreep(this.role.getBody(), this.name, {
             memory: {
+                spawn: this.role.getName(),
                 role: this.role.getName(),
-                body: this.role.getBody(),
-                spawn: this.spawn,
-                respawn: true,
-                assignments: null
             }
-        }) < 0) {
-            logger.error('Error during add()')
-        } else {
+        }), function() {
             logger.success('New screep created', this.role.getName())
-        }
+        })
     }
 
 }
